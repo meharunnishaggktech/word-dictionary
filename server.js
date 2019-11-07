@@ -4,6 +4,9 @@ const co = require('co');
 const prompt = require('co-prompt');
 const program = require('commander');
 const wordnikApi = require('./apis/fourtytwowords-api');
+const inquirer = require('inquirer')
+
+
 
 if (process.argv.length == 2) {
     let getRandomWord = wordnikApi.getRandomWord()
@@ -75,12 +78,36 @@ program.arguments('command', 'word').action(async(command, word) => {
        
         case "play":
             {
-                if (word && typeof word == 'string') {
-                    console.log('\nPreparing the ground for a game \n');
-                    wordnikApi.startGame(word);
-                } else {
-                    console.log('Please enter valid word play \n');
-                }
+
+                var questions = [{
+                    type: 'input',
+                    name: 'name',
+                    message: "Please enter the word",
+                }]
+
+
+
+                inquirer.prompt(questions).then(answers => {
+                    console.log(`${answers['name']}!`)
+
+                    let enterWord = `${answers['name']}`;
+                    let getRandomWord = wordnikApi.getDefinitionWord(enterWord)
+                    .then((response) => console.log("randomWord Is: "+ response.error) //+"\n"+
+                                        // wordnikApi.getDefinition(response.word) +"\n"+
+                                        // wordnikApi.getSynonym(response.word) +"\n"+
+                                        // wordnikApi.getAntonym(response.word)
+                    )
+                    .catch((error) => console.error(error));
+                })
+
+
+
+                // if (word && typeof word == 'string') {
+                //     console.log('\nPreparing the ground for a game \n');
+                //     wordnikApi.startGame(word);
+                // } else {
+                //     console.log('Please enter valid word play \n');
+                // }
                 //break;
             }
         default:

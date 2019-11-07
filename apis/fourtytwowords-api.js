@@ -44,6 +44,26 @@ module.exports = {
                })
         })
     },
+    getDefinitionWord(word){
+        var options = {
+            url: appConfig.fourtytwowordsInfo.url + 'word/' + word + '/definitions?api_key=' + appConfig.fourtytwowordsInfo.apiKey,
+            headers: {
+                'User-Agent': 'request'
+            }
+        };
+        return new Promise(function(resolve, reject) {
+               request.get(options, function(error, response, body) { 
+                let getResponse = JSON.parse(body);
+                console.log(getResponse);
+               // console.log(getResponse.error)
+                   if (getResponse.error) {
+                       reject(getResponse.error);
+                   } else {
+                       resolve(getResponse);
+                   }
+               })
+        })
+    },
     wordOfTheDay: () => {
         request(appConfig.fourtytwowordsInfo.url + '/word/wordOfTheDay?api_key=' + appConfig.fourtytwowordsInfo.apiKey, async(error, response, body) => {
             if (error)
