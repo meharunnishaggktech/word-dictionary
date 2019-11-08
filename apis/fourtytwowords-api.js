@@ -1,7 +1,6 @@
 
 const request = require('request');
 const appConfig = require('../config');
-const fetch = require("node-fetch");
 
 module.exports = {
     getDefinition: async(word) => {
@@ -53,13 +52,12 @@ module.exports = {
         };
         return new Promise(function(resolve, reject) {
                request.get(options, function(error, response, body) { 
-                let getResponse = JSON.parse(body);
-                console.log(getResponse);
-               // console.log(getResponse.error)
-                   if (getResponse.error) {
-                       reject(getResponse.error);
+                   if (error) {
+                       console.log(JSON.parse(response.body).error );
+                       reject(JSON.parse(response.body).error );
                    } else {
-                       resolve(getResponse);
+                       console.log(response.body );
+                       resolve(response.body);
                    }
                })
         })

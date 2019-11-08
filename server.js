@@ -92,10 +92,12 @@ program.arguments('command', 'word').action(async(command, word) => {
 
                     let enterWord = `${answers['name']}`;
                     let getRandomWord = wordnikApi.getDefinitionWord(enterWord)
-                    .then((response) => console.log("randomWord Is: "+ response.error) //+"\n"+
-                                        // wordnikApi.getDefinition(response.word) +"\n"+
-                                        // wordnikApi.getSynonym(response.word) +"\n"+
-                                        // wordnikApi.getAntonym(response.word)
+                    .then(//(response) => console.log("word Is: "+ response) //+"\n"+
+                                        //  wordnikApi.getDefinition(enterWord) +"\n"+
+                                        //  wordnikApi.getSynonym(enterWord) //+"\n"+
+                                        // wordnikApi.getAntonym(enterWord)
+                                        
+                                       
                     )
                     .catch((error) => console.error(error));
                 })
