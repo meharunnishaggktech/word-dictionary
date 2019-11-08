@@ -54,8 +54,6 @@ module.exports = {
         return new Promise(function(resolve, reject) {
                request.get(options, function(error, response, body) { 
                 let getResponse = JSON.parse(body);
-                console.log(getResponse);
-               // console.log(getResponse.error)
                    if (getResponse.error) {
                        reject(getResponse.error);
                    } else {

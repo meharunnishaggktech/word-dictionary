@@ -6,8 +6,6 @@ const program = require('commander');
 const wordnikApi = require('./apis/fourtytwowords-api');
 const inquirer = require('inquirer')
 
-
-
 if (process.argv.length == 2) {
     let getRandomWord = wordnikApi.getRandomWord()
     .then((response) => console.log("randomWord Is: "+ response.word) +"\n"+
@@ -84,9 +82,6 @@ program.arguments('command', 'word').action(async(command, word) => {
                     name: 'name',
                     message: "Please enter the word",
                 }]
-
-
-
                 inquirer.prompt(questions).then(answers => {
                     console.log(`${answers['name']}!`)
 
@@ -99,16 +94,6 @@ program.arguments('command', 'word').action(async(command, word) => {
                     )
                     .catch((error) => console.error(error));
                 })
-
-
-
-                // if (word && typeof word == 'string') {
-                //     console.log('\nPreparing the ground for a game \n');
-                //     wordnikApi.startGame(word);
-                // } else {
-                //     console.log('Please enter valid word play \n');
-                // }
-                //break;
             }
         default:
             {
