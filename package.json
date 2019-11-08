@@ -10,7 +10,8 @@
     "inquirer": "^7.0.0",
     "node-fetch": "^2.6.0",
     "process": "^0.11.10",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "string-shuffle": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {

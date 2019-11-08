@@ -1,6 +1,8 @@
 
 # Project setup:
-   ## clone the repo https://github.com/meharunnishaggktech/word-dictionary.git
+   ## Clone the repo 
+      https://github.com/meharunnishaggktech/word-dictionary.git
+      
    ## npm install -g 
 
 # Commnds :
@@ -26,7 +28,7 @@
 
    ## Display Word Full Dict.
 
-        dict  word 
+        dict dict  word 
 
    ##  Display Word Play.
 

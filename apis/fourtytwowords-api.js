@@ -1,6 +1,7 @@
 
 const request = require('request');
 const appConfig = require('../config');
+var stringShuffle = require("string-shuffle")
 
 module.exports = {
     getDefinition: async(word) => {
@@ -43,7 +44,7 @@ module.exports = {
                })
         })
     },
-    getDefinitionWord(word){
+    getWordDefinition(word){
         var options = {
             url: appConfig.fourtytwowordsInfo.url + 'word/' + word + '/definitions?api_key=' + appConfig.fourtytwowordsInfo.apiKey,
             headers: {
@@ -54,13 +55,28 @@ module.exports = {
                request.get(options, function(error, response, body) { 
                 let getResponse = JSON.parse(body);
                    if (error) {
-                       console.log(JSON.parse(response.body).error );
-                       reject(JSON.parse(response.body).error );
+                       reject(error);
                    } else {
-                       console.log(response.body );
-                       resolve(response.body);
+                       resolve(response);
                    }
                })
+        })
+    },
+    getShuffledWord(secondAddedWord){
+        return stringShuffle(secondAddedWord);
+    },
+    getfinalResult(secondAddedWord){
+        var wordShuffle = this.getShuffledWord(secondAddedWord);
+        console.log("Shuffled word is : " +wordShuffle); +"\n";
+        getDef = this.getWordDefinition(wordShuffle)
+        .then((shuffiledresponse) => { console.log(shuffiledresponse.body)
+            if (JSON.parse(shuffiledresponse.body).error) {
+                return  this.getfinalResult(wordShuffle) +"\n"+ ";"
+            }else{
+                this.getDefinition(wordShuffle) +"\n"+
+                this.getSynonym(wordShuffle) +"\n"+
+                this.getAntonym(wordShuffle) 
+            }
         })
     },
     wordOfTheDay: () => {
@@ -70,7 +86,7 @@ module.exports = {
             if (response && response.statusCode == 200) {
                 var wordOfTheDay = JSON.parse(body);
                 if (wordOfTheDay) {
-                    console.log("\nwordOfTheDay: " + (wordOfTheDay && wordOfTheDay.word ? wordOfTheDay.word : ''))
+                    console.log("\nwordOfTheDay:  \n" + (wordOfTheDay && wordOfTheDay.word ? wordOfTheDay.word : ''))
                 } else {
                     console.warn('Failed while getting the antonyms of word.')
                 }
@@ -135,7 +151,4 @@ module.exports = {
             }
         });
     },
-    startGame: () => {
-        console.warn('Work in progress');
-    }
 }
