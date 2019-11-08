@@ -58,22 +58,6 @@ program.arguments('command', 'word').action(async(command, word) => {
                 }
                 break;
             }
-            case "dict":
-            {
-                console.log("Wait");
-                // wordnikApi.getRandomWord();
-                // if (word && typeof word == 'string') {
-                //     console.log('\nGetting "Details" of the word: "%s" \n', word);
-                //     wordnikApi.getDefinition(word)
-                //     wordnikApi.getSynonym(word)
-                //     wordnikApi.getAntonym(word)
-                //     wordnikApi.getExample(word)
-                // } else {
-                //     console.log('Please enter valid word \n');
-                // }
-                // break;
-            }
-       
         case "play":
             {
 
@@ -84,13 +68,14 @@ program.arguments('command', 'word').action(async(command, word) => {
                 }]
                 inquirer.prompt(questions).then(answers => {
                     console.log(`${answers['name']}!`)
-
                     let enterWord = `${answers['name']}`;
                     let getRandomWord = wordnikApi.getDefinitionWord(enterWord)
-                    .then((response) => console.log("randomWord Is: "+ response.error) //+"\n"+
-                                        // wordnikApi.getDefinition(response.word) +"\n"+
-                                        // wordnikApi.getSynonym(response.word) +"\n"+
-                                        // wordnikApi.getAntonym(response.word)
+                    .then((response) => console.log("word Is: "+ response) +"\n"+
+                                          wordnikApi.getDefinition(enterWord) +"\n"+
+                                          wordnikApi.getSynonym(enterWord) +"\n"+
+                                          wordnikApi.getAntonym(enterWord)
+                                        
+                                       
                     )
                     .catch((error) => console.error(error));
                 })
